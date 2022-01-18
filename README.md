@@ -257,4 +257,30 @@ And now TypeScript is able to catch our error for the age property of `student2`
 
 ## Classes
 
-TypeScript adds a few 
+TypeScript adds a few new features to classes. Before we dive into those, let see how we can add type annotations to our classes in TypeScript. First lets start by declaring our properties and specifying their type
+
+```ts
+class Student {
+    firstName: string;
+    middleInitial: string;
+    lastName: string;
+    fullName: string;
+}
+```
+
+Now we can add our constructor, just like we do in JavaScript
+
+```ts
+class Student {
+    firstName: string;
+    middleInitial: string;
+    lastName: string;
+    fullName: string;
+    constructor(firstName: string, middleInitial: string, lastName: string) {
+        this.firstName = firstName;
+        this.middleInitial = middleInitial;
+        this.lastName = lastName;
+        this.fullName = firstName + " " + middleInitial + " " + lastName;
+    }
+}
+```
