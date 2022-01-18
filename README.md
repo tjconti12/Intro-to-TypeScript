@@ -179,4 +179,82 @@ addNums(1, "2") // Will throw error
 
 ### Return Void in Functions
 
-Sometimes we want a function to do something, and then return us a value. In the example above, the function will return a number type. But what if we don't want our function to return anything?
+Sometimes we want a function to do something, and then return us a value. In the example above, the function will return a number type. But what if we don't want our function to return anything? This is where we can use the void type!
+
+```ts
+const printNumber (num1: number, num2: number): void => {
+    console.log(num1 + num2);
+}
+```
+
+## Objects
+
+Lets start by creating a basic object in our `test.ts` file.
+
+```ts 
+const student = {
+    name: "Maria",
+    age: 20,
+    isEnrolled: true
+}
+```
+
+We can hover our mouse over `student` and see that TypeScript was able to infer the type for us! But lets say we wanted to create a second student, and we wanted to ensure that the data was consistent. 
+
+```ts
+const student2 = {
+    name: "John",
+    age: "21",
+    isEnrolled: true
+}
+```
+
+This time `age` is now of type string. This is where being explicit with types is helpful! Here is how we can add a type annotation to an object
+
+```ts
+const student: {
+    name: string;
+    age: number;
+    isEnrolled: boolean;
+} = {
+    name: "Maria",
+    age: 20,
+    isEnrolled: true
+}
+```
+
+Repeating that over and over would get excessive quickly! This is where creating custom data types is helpful!
+
+## Type Interface
+
+TypeScript has two ways for us to declare a reusable type. For this lesson, we will use the Type Interface option. Lets create a Type Interface for our student object.
+
+```ts
+interface StudentInterface {
+    name: string;
+    age: number;
+    isEnrolled: boolean;
+}
+```
+
+Now we can replace our type annotations with StudentInterface!
+
+```ts
+const student: StudentInterface = {
+    name: "Maria",
+    age: 20,
+    isEnrolled: true
+}
+
+const student2: StudentInterface = {
+    name: "John",
+    age: "21",
+    isEnrolled: true
+}
+```
+
+And now TypeScript is able to catch our error for the age property of `student2`!
+
+## Classes
+
+TypeScript adds a few 
