@@ -265,6 +265,7 @@ class Student {
     middleInitial: string;
     lastName: string;
     fullName: string;
+    age: number;
 }
 ```
 
@@ -276,11 +277,101 @@ class Student {
     middleInitial: string;
     lastName: string;
     fullName: string;
-    constructor(firstName: string, middleInitial: string, lastName: string) {
+    age: number;
+    constructor(firstName: string, middleInitial: string, lastName: string, age: number) {
         this.firstName = firstName;
         this.middleInitial = middleInitial;
         this.lastName = lastName;
+        this.age = age;
         this.fullName = firstName + " " + middleInitial + " " + lastName;
     }
 }
 ```
+
+Now we can try creating two instances of the `Student` class
+
+```ts
+const student1 = new Student("Tyler", "J", "Conti", 27);
+
+const student2 = new Student("John", "J", "Doe", "30");
+```
+
+Thanks to typescript, we can catch our error early on!
+
+### Public and Private
+
+TypeScript gives us the ability to make certain properties in classes either public (visible anywhere) or private (only visible to the class). Lets say for example we wanted to add a grade property to our class
+
+```ts
+class Student {
+    firstName: string;
+    middleInitial: string;
+    lastName: string;
+    fullName: string;
+    age: number;
+    grade: number;
+    constructor(firstName: string, middleInitial: string, lastName: string, age: number, grade: number) {
+        this.firstName = firstName;
+        this.middleInitial = middleInitial;
+        this.lastName = lastName;
+        this.age = age;
+        this.grade = grade;
+        this.fullName = firstName + " " + middleInitial + " " + lastName;
+    }
+}
+
+const student1 = new Student("Tyler", "J", "Conti", 27, 100);
+```
+
+Now if we try to access `student1.grade`, you will see that we can view, edit, or overwrite this value. What if we don't want anyone to change this value? Or we want to have more control over how this value is changed? We can make it a private property!
+
+```ts
+class Student {
+    firstName: string;
+    middleInitial: string;
+    lastName: string;
+    fullName: string;
+    age: number;
+    private grade: number;
+    constructor(firstName: string, middleInitial: string, lastName: string, age: number, grade: number) {
+        this.firstName = firstName;
+        this.middleInitial = middleInitial;
+        this.lastName = lastName;
+        this.age = age;
+        this.grade = grade;
+        this.fullName = firstName + " " + middleInitial + " " + lastName;
+    }
+}
+
+const student1 = new Student("Tyler", "J", "Conti", 27, 100);
+```
+
+Now you will see that we can no longer access `student1.grade`. The only way to change this now would be through the use of getter and setter methods!
+
+
+```ts
+class Student {
+    firstName: string;
+    middleInitial: string;
+    lastName: string;
+    fullName: string;
+    age: number;
+    private grade: number;
+    constructor(firstName: string, middleInitial: string, lastName: string, age: number, grade: number) {
+        this.firstName = firstName;
+        this.middleInitial = middleInitial;
+        this.lastName = lastName;
+        this.age = age;
+        this.grade = grade;
+        this.fullName = firstName + " " + middleInitial + " " + lastName;
+    }
+    changeGrade(grade: number): void {
+        this.grade += grade;
+    }
+    getGrade(): number {
+        return this.grade;
+    }
+}
+```
+
+## Generics
