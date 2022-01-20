@@ -164,6 +164,34 @@ let result: number = num1 + num2;
 Here we get the same error as before!
 
 
+## Arrays in TypeScript
+
+Working with arrays in TypeScript is very straightforward. Here is how you might create an array in TypeScript
+
+```ts
+
+let fruits: string[] = ["Apple", "Orange", "Banana"];
+
+// You could also see it written like this, but the syntax may look a little strange
+
+let fruits: Array<string> = ["Apple", "Orange", "Banana"];
+
+```
+
+But what if I want my array to hold strings and numbers, for example? Here we can make use of a union! A union allows us to specify one type OR another
+
+```ts
+let values: (string | number)[] = [1, 2, "3", "4"];
+```
+
+You may see someone use the type `any` here if the array contains a lot of different types of data. However, it is strongly recommended that you avoid the use of `any` at all costs. It takes away all of the awesome TypeScript features!
+
+```ts
+// Avoid doing this
+let values: any[] = [1, 2, "3", "4", true, []];
+```
+
+
 ## Functions in TypeScript
 
 Functions work the same as with variables, except now we can specify the types for the parameters, and the return type. Lets look at an example.
@@ -375,3 +403,43 @@ class Student {
 ```
 
 ## Generics
+
+Generics is a more complicated but important part of TypeScript. Generics allows us to create functions (or components in something like react) that can work with a variety of types rather than just one. Lets look at an example!
+
+```ts
+const insertAtBeginning = (array, value) => {
+   const newArray = [value, ...array];
+   return newArray;
+}
+```
+
+Now if he hover our mouse over the function, you will see that the array can be `any` type, the value can be `any` type, and the function can return `any` type. 
+
+![Screen Shot 2022-01-19 at 15 24 02](https://user-images.githubusercontent.com/78386402/150208101-5d66ca47-ea89-4adc-9a07-0715b83b0ffe.png)
+
+
+Remember how we said we want to avoid the use of `any` at all costs? What do you think will happen if we keep our function like this?
+
+```ts
+const insertAtBeginning = (array, value) => {
+   const newArray = [value, ...array];
+   return newArray;
+}
+
+// What type do you think updatedArray will be?
+const updatedArray = insertAtBeginning([1,2,3], 4);
+
+// Will we get an error if we do this?
+const updatedArray2 = insertAtBeginning([1,2,3], "4");
+```
+
+This is where generics comes in! Generics allows us to use a *placeholder* type. Lets see how this looks!
+
+```ts
+const insertAtBeginning = <T>(array: T[], value: T): T[] => {
+   const newArray = [value, ...array];
+   return newArray;
+}
+```
+
+Woooah what are those weird `<>` and the `T`? This is how we use generics! You can think of the T as a *placeholder* for the type. Now we can replace the type with `T`, and the function will know which type we are talking about!
